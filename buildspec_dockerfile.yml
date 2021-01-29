@@ -21,12 +21,11 @@ phases:
         - cd ${PRO}
     build:
         commands:
-        - echo "Build started on $(date)"
+        - echo "Build started"
         - echo "Scanning with Hadolint..."        
         - result=`docker run --rm -i -v ${PWD}/.hadolint.yml:/.hadolint.yaml hadolint/hadolint:v1.16.2 hadolint -f json - < Dockerfile`
     post_build:
         commands:
         - echo "Lint Results:"
         - echo $result | jq . 
-        - aws ssm put-parameter --name "codebuild-dockerfile-results" --type "String" --value "$result" --overwrite
-        - echo Build completed on `date`
+        - echo Build completed
