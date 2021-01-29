@@ -16,7 +16,6 @@ phases:
         - pwd
         - echo "Pulling the hadolint docker image"
         - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
-        - docker run hello-world
         - docker pull hadolint/hadolint:v1.16.2
         - git clone ${PROJECT}
         - cd ${PRO}
