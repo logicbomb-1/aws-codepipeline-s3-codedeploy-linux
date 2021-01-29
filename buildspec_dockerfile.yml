@@ -15,7 +15,7 @@ phases:
         - echo "Switching to the application directory"
         - cd $CODEBUILD_SRC_DIR_AppSource
         - echo "Pulling the hadolint docker image"
-        - docker pull hadolint/hadolint:v1.16.2
+        - docker run hello-world
     build:
         commands:
         - echo "Build started on $(date)"
