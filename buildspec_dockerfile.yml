@@ -16,6 +16,8 @@ phases:
         - echo "Pulling the hadolint docker image"
         - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
         - docker run hello-world
+        - docker run --rm -i ghcr.io/hadolint/hadolint < Dockerfile
+        - docker run --rm -i hadolint/hadolint < Dockerfile
     build:
         commands:
         - echo "Build started on $(date)"
