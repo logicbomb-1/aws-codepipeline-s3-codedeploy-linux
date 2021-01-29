@@ -19,13 +19,12 @@ phases:
         - docker run hello-world
         - docker pull hadolint/hadolint:v1.16.2
         - git clone https://github.com/logicbomb-1/aws-codepipeline-s3-codedeploy-linux.git
-        - cd aws-codepipeline-s3-codedeploy-linux
-        - docker run --rm -i -v ${PWD}/.hadolint.yml:/.hadolint.yaml hadolint/hadolint:v1.16.2 hadolint -f json - < Dockerfile
+        - cd ${PROJECT}
     build:
         commands:
         - echo "Build started on $(date)"
         - echo "Scanning with Hadolint..."        
-        - result=`docker run --rm -i hadolint/hadolint:v1.16.2 hadolint -f json - < ./Dockerfile`
+        - result=`docker run --rm -i -v ${PWD}/.hadolint.yml:/.hadolint.yaml hadolint/hadolint:v1.16.2 hadolint -f json - < Dockerfile`
     post_build:
         commands:
         - echo "Lint Results:"
