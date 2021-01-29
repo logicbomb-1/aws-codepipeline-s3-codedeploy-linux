@@ -8,9 +8,9 @@ phases:
         - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
         - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
         - apt install docker-ce -y       
+        - systemctl start docker
         - echo "Copying hadolint.yml to the application directory"
         - docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
-        - usermod -aG docker $USER
         - cp hadolint.yml $CODEBUILD_SRC_DIR_AppSource/hadolint.yml
         - echo "Switching to the application directory"
         - cd $CODEBUILD_SRC_DIR_AppSource
