@@ -18,8 +18,8 @@ phases:
         - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
         - docker run hello-world
         - docker pull hadolint/hadolint:v1.16.2
-        - git clone https://github.com/logicbomb-1/aws-codepipeline-s3-codedeploy-linux.git
-        - cd ${PROJECT}
+        - git clone ${PROJECT}
+        - cd ${PRO}
     build:
         commands:
         - echo "Build started on $(date)"
