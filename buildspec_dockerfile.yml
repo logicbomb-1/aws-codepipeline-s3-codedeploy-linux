@@ -3,6 +3,8 @@ version: 0.2
 phases:
     pre_build:
         commands:
+        - echo Logging in to Amazon ECR...
+        - $(aws ecr get-login --region {{ aws_region }} --no-include-email)        
         - echo "Copying hadolint.yml to the application directory"
         - docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
         - cp hadolint.yml $CODEBUILD_SRC_DIR_AppSource/hadolint.yml
