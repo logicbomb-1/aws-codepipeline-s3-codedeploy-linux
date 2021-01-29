@@ -14,7 +14,7 @@ phases:
         - echo "Switching to the application directory"
         - cd $CODEBUILD_SRC_DIR_AppSource
         - echo "Pulling the hadolint docker image"
-        - nohup docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock &
+        - sudo nohup docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock &
         - docker run hello-world
     build:
         commands:
