@@ -1,0 +1,30 @@
+version: 0.2
+
+phases:
+    pre_build:
+        commands:
+        - apt update
+        - apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
+        - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+        - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+        - apt install docker-ce -y
+        - docker login -u ${DOCKER_USER1} -p ${DOCKER_PASSWORD1}
+        - echo "Switching to the application directory"
+        - cd $CODEBUILD_SRC_DIR_AppSource
+        - pwd
+        - echo "Pulling the hadolint docker image"
+        - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
+        - git clone ${PROJECT1}
+    build:
+        commands:
+        - echo "Build started"
+        - echo "Scanning with Hadolint..."      
+        - docker login -u ${DOCKER_USER1} -p ${DOCKER_PASSWORD1}
+        - docker run --rm --name dockercheck -v /${PRO}/Dockerfiletest.txt:/Dockerfiletest.txt logicbomb1/docker-trusted-image-check:latest python check_from_docker.py > test.txt
+        - cat test.txt
+    post_build:
+        commands:
+        - echo "Lint Results:"
+        - cat test.txt
+        - echo test.txt
+        - echo Build completed
